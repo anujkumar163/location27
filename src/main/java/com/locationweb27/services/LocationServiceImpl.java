@@ -1,0 +1,45 @@
+package com.locationweb27.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.locationweb27.entity.Locations;
+import com.locationweb27.repository.LocationRepository;
+
+@Service
+public class LocationServiceImpl implements LocationServices {
+
+	@Autowired
+	private LocationRepository locationRepo;
+	
+	@Override
+	public void savelocation(Locations location) {
+		locationRepo.save(location);
+
+	}
+
+	@Override
+	public List<Locations> getAllLocations() {
+		List<Locations> locations = locationRepo.findAll();
+		return locations;
+	}
+
+	@Override
+	public void deleteLocationById(long id) {
+		locationRepo.deleteById(id);
+		
+	}
+
+	@Override
+	public Locations getLocationById(long id) {
+		Optional<Locations> findById = locationRepo.findById(id);
+		Locations locations = findById.get();
+		return locations;
+	}
+
+	
+
+}
